@@ -50,14 +50,15 @@ time.sleep(10)
 
 ## Obtendo as noticias ##
 noticias = driver.find_elements(By.CLASS_NAME, "resultados-wrapper") # Obtem as classes de noticias existentes na aba
+noticia_url = {}
 titulo_dou = {} # Dicionario para colocar o titulo da notícia
 texto_dou = {} # Dicionario para o Gemini trabalhar
 for i, noticia in enumerate(noticias):
     try:
         link_element = noticia.find_element(By.TAG_NAME, "a") # Encontrar link
-        noticia_url = link_element.get_attribute("href") # Coletar o link
+        noticia_url[f'Noticia {i}'] = link_element.get_attribute("href") # Coletar o link
 
-        driver.execute_script("window.open(arguments[0]);", noticia_url) # Abrir em nova aba
+        driver.execute_script("window.open(arguments[0]);", noticia_url[f'Noticia {i}']) # Abrir em nova aba
         driver.switch_to.window(driver.window_handles[1]) # Ir para a nova aba
 
         WebDriverWait(driver, 10).until(
