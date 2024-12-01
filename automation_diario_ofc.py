@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC 
 import time
 import pyautogui 
+from Gemini import *
 
 service = Service(executable_path="E:\Backup_PC\Aplicativos\ChromeDrive\WebDriver\chromedriver.exe")
 driver = webdriver.Chrome(service=service)
@@ -79,6 +80,13 @@ for i, noticia in enumerate(noticias):
     except Exception as e:
         print(f"Erro ao processar a notícia {i+1}: {e}") # Se der erro, ele avisa e ficamos tristes
 
-driver.quit()
+driver.quit() # Sai da pagina da web
 
-   
+results = gemini_analysis(titulo_dou,texto_dou) # Faz a analise a partir de IA na função vista pelo código Gemini.py
+
+for key, value in results.items(): # Loop para pegar todas as noticias do dicionario
+    print(f"Título: {value['title']}") # Imprime o título
+    if "response" in value: # Pega apenas a resposta gerada pela IA para printar
+        print(f"Resposta: {value['response']}") # Imprime a resposta
+    else:
+        print(f"Erro: {value['error']}") # Se der erra, ficaremos tristes
