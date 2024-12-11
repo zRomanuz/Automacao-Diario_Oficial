@@ -91,3 +91,45 @@ for key, value in results.items(): # Loop para pegar todas as noticias do dicion
         print(f"Resposta: {value['response']}") # Imprime a resposta
     else:
         print(f"Erro: {value['error']}") # Se der erra, ficaremos tristes
+
+titulo = []
+body = []
+open("noticias.txt", "w").close()
+
+
+for i in range(0, int(len(titulo_dou))):
+    titulo.append(f"Titulo: {titulo_dou[f'Noticia {i}']}.")
+    body.append(f"{texto_dou[f'Noticia {i}']}.")
+    with open("noticias.txt","a") as arquivo:
+        arquivo.write(f"<p>{str(titulo[i])}<\p>\n")
+        arquivo.write(f"<p>{str(body[i])}<\p>\n\n")
+        arquivo.write("<p><\p>")
+        
+
+
+outlook = win32.Dispatch('Outlook.Application') # cria integração com o outlook
+email = outlook.CreateItem(0) # Cria e-mail
+
+# Configurações do e-mail
+
+
+with open("noticias.txt","r") as file:
+   file_content = file.read()
+
+file_content.replace("\n", "<br>")
+
+email.To = "leonardo.fsantos@embraer.com.br"
+email.Subject = "Resumo Diário Oficial"
+
+
+email.HTMLBody = f"""
+    <p> Bom dia! Segue o resumo do dirário oficial </p>
+    <p></p>
+    <p> {(file_content)} </p>
+    <p></p>
+    <p> Best regards| Atenciosamente, </p>
+    <p> Guilherme Franco & Leo Ferreira </p>   
+"""   
+email.Send() 
+
+driver.quit()
