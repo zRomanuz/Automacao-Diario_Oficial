@@ -18,3 +18,8 @@
 - Acesse-o utilizando o comando "\venv\Scripts\activate" e digite r para permitir (faça isso sempre que abrir o VSCode);
 - Instale o arquivo `requirements.txt` dentro do seu ambiente virtual a partir do comando "pip install -r .\requirements.txt" (faça isso apenas no primeiro acesso).
 
+**Criação da chave API do GEMINI**
+- Acessar o site [Google Developer AI](https://ai.google.dev/);
+- Entre em "Get API key in Google AI Studio";
+- Crie a chave de API e copie;
+- Incula a chave em um documento `.env` da mesma forma que o modelo `.env_example`.
